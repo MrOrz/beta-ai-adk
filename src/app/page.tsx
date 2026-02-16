@@ -1,110 +1,53 @@
 "use client";
 
-import { ProverbsCard } from "@/components/proverbs";
-import { WeatherCard } from "@/components/weather";
-import { AgentState } from "@/lib/types";
 import {
   useCoAgent,
-  useDefaultTool,
-  useFrontendTool,
-  useHumanInTheLoop,
-  useRenderToolCall,
 } from "@copilotkit/react-core";
-import { CopilotKitCSSProperties, CopilotSidebar } from "@copilotkit/react-ui";
-import { useState } from "react";
+import { CopilotSidebar } from "@copilotkit/react-ui";
 
 export default function CopilotKitPage() {
-  const [themeColor, setThemeColor] = useState("#6366f1");
-
-  // 🪁 Frontend Actions: https://docs.copilotkit.ai/adk/frontend-actions
-  useFrontendTool({
-    name: "setThemeColor",
-    parameters: [
-      {
-        name: "themeColor",
-        description: "The theme color to set. Make sure to pick nice colors.",
-        required: true,
-      },
-    ],
-    handler({ themeColor }) {
-      setThemeColor(themeColor);
-    },
+  useCoAgent({
+    name: "my_agent",
   });
 
   return (
-    <main
-      style={
-        { "--copilot-kit-primary-color": themeColor } as CopilotKitCSSProperties
-      }
-    >
+    <main>
       <CopilotSidebar
         disableSystemMessage={true}
         clickOutsideToClose={false}
         defaultOpen={true}
         labels={{
-          title: "Popup Assistant",
-          initial: "👋 Hi, there! You're chatting with an agent.",
+          title: "Cofacts AI",
+          initial:
+            "👋 你好！我是 Cofacts AI 事實查核助手。\n\n請提供一則 Cofacts 可疑訊息的網址（例如 https://cofacts.tw/article/<articleId>）來開始查核流程。",
         }}
         suggestions={[
           {
-            title: "Generative UI",
-            message: "Get the weather in San Francisco.",
-          },
-          {
-            title: "Frontend Tools",
-            message: "Set the theme to green.",
-          },
-          {
-            title: "Write Agent State",
-            message: "Add a proverb about AI.",
-          },
-          {
-            title: "Update Agent State",
+            title: "開始查核",
             message:
-              "Please remove 1 random proverb from the list if there are any.",
+              "我想查核這則訊息：https://cofacts.tw/article/",
           },
           {
-            title: "Read Agent State",
-            message: "What are the proverbs?",
+            title: "搜尋 Cofacts",
+            message: "幫我搜尋 Cofacts 資料庫中關於「疫苗」的可疑訊息",
+          },
+          {
+            title: "熱門待查核",
+            message: "有哪些最近熱門、需要查核的訊息？",
           },
         ]}
       >
-        <YourMainContent themeColor={themeColor} />
+        <div className="h-screen flex justify-center items-center bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900">
+          <div className="text-center text-white/80 max-w-md px-6">
+            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+              Cofacts AI
+            </h1>
+            <p className="text-lg text-white/60">
+              事實查核助手 — 在右側聊天欄開始對話
+            </p>
+          </div>
+        </div>
       </CopilotSidebar>
     </main>
-  );
-}
-
-function YourMainContent({ themeColor }: { themeColor: string }) {
-  // 🪁 Shared State: https://docs.copilotkit.ai/adk/shared-state
-  const { state, setState } = useCoAgent<AgentState>({
-    name: "my_agent",
-    initialState: {
-      proverbs: [
-        "CopilotKit may be new, but its the best thing since sliced bread.",
-      ],
-    },
-  });
-
-  //🪁 Generative UI: https://docs.copilotkit.ai/adk/generative-ui
-  useRenderToolCall(
-    {
-      name: "get_weather",
-      description: "Get the weather for a given location.",
-      parameters: [{ name: "location", type: "string", required: true }],
-      render: ({ args, result }) => {
-        return <WeatherCard location={args.location} themeColor={themeColor} />;
-      },
-    },
-    [themeColor],
-  );
-
-  return (
-    <div
-      style={{ backgroundColor: themeColor }}
-      className="h-screen flex justify-center items-center flex-col transition-colors duration-300"
-    >
-      <ProverbsCard state={state} setState={setState} />
-    </div>
   );
 }

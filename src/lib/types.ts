@@ -1,4 +1,2 @@
-// State of the agent, make sure this aligns with your agent's state.
-export type AgentState = {
-  proverbs: string[];
-}
+// State of the agent — Cofacts AI uses server-side state only.
+export type AgentState = Record<string, unknown>;

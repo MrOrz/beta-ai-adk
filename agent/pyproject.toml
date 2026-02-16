@@ -1,7 +1,7 @@
 [project]
-name = "proverbs-agent"
+name = "cofacts-ai-agent"
 version = "0.1.0"
-description = "ADK Proverbs Agent with shared state"
+description = "Cofacts AI multi-agent fact-checking system"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi",
@@ -11,4 +11,5 @@ dependencies = [
     "google-adk",
     "google-genai",
     "ag-ui-adk",
+    "httpx",
 ]
