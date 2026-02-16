@@ -7,44 +7,20 @@ This is a starter template for building AI agents using Google's [ADK](https://g
 - Node.js 18+
 - Python 3.12+
 - Google Makersuite API Key (for the ADK agent) (see https://makersuite.google.com/app/apikey)
-- Any of the following package managers:
-  - pnpm (recommended)
-  - npm
-  - yarn
-  - bun
+- pnpm
 
-> **Note:** This repository ignores lock files (package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb) to avoid conflicts between different package managers. Each developer should generate their own lock file using their preferred package manager. After that, make sure to delete it from the .gitignore.
+> **Note:** This repository includes a pnpm-lock.yaml file. Please ensure you have pnpm installed.
 
 ## Getting Started
 
-1. Install dependencies using your preferred package manager:
+1. Install dependencies:
 ```bash
-# Using pnpm (recommended)
 pnpm install
-
-# Using npm
-npm install
-
-# Using yarn
-yarn install
-
-# Using bun
-bun install
 ```
 
 2. Install Python dependencies for the ADK agent:
 ```bash
-# Using pnpm
 pnpm install:agent
-
-# Using npm
-npm run install:agent
-
-# Using yarn
-yarn install:agent
-
-# Using bun
-bun run install:agent
 ```
 
 > **Note:** This will automatically setup a `.venv` (virtual environment) inside the `agent` directory.
@@ -62,23 +38,13 @@ export GOOGLE_API_KEY="your-google-api-key-here"
 
 4. Start the development server:
 ```bash
-# Using pnpm
 pnpm dev
-
-# Using npm
-npm run dev
-
-# Using yarn
-yarn dev
-
-# Using bun
-bun run dev
 ```
 
 This will start both the UI and agent servers concurrently.
 
 ## Available Scripts
-The following scripts can also be run using your preferred package manager:
+The following scripts can also be run using pnpm:
 - `dev` - Starts both UI and agent servers in development mode
 - `dev:debug` - Starts development servers with debug logging enabled
 - `dev:ui` - Starts only the Next.js UI server
