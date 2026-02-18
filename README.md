@@ -88,5 +88,5 @@ If you see "I'm having trouble connecting to my tools", make sure:
 If you encounter Python import errors:
 ```bash
 cd agent
-pip install -r requirements.txt
+uv sync
 ```

@@ -5,12 +5,12 @@
   "scripts": {
     "dev": "concurrently \"pnpm run dev:ui\" \"pnpm run dev:agent\" --names ui,agent --prefix-colors blue,green --kill-others",
     "dev:debug": "LOG_LEVEL=debug pnpm run dev",
-    "dev:agent": "./scripts/run-agent.sh || scripts/run-agent.bat",
+    "dev:agent": "uv run --project agent adk web --port 8000 .",
     "dev:ui": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "install:agent": "./scripts/setup-agent.sh || scripts\\setup-agent.bat",
+    "install:agent": "uv sync --project agent",
     "postinstall": "pnpm run install:agent"
   },
   "dependencies": {
