@@ -1,6 +1,6 @@
 # CopilotKit <> ADK Starter
 
-This is a starter template for building AI agents using Google's [ADK](https://google.github.io/adk-docs/) and [CopilotKit](https://copilotkit.ai). It provides a modern Next.js application with an integrated investment analyst agent that can research stocks, analyze market data, and provide investment insights.
+This is a starter template for building AI agents using Google's [ADK](https://google.github.io/adk-docs/) and [CopilotKit](https://copilotkit.ai). It provides a modern TanStack Start application with an integrated investment analyst agent that can research stocks, analyze market data, and provide investment insights.
 
 ## Prerequisites
 
@@ -46,17 +46,19 @@ This will start both the UI and agent servers concurrently.
 ## Available Scripts
 The following scripts can also be run using pnpm:
 - `dev` - Starts both UI and agent servers in development mode
-- `dev:debug` - Starts development servers with debug logging enabled
-- `dev:ui` - Starts only the Next.js UI server
+- `dev:ui` - Starts only the UI server (Vite)
 - `dev:agent` - Starts only the ADK agent server
-- `build` - Builds the Next.js application for production
-- `start` - Starts the production server
+- `build` - Builds the application for production
+- `preview` - Previews the production build
+- `test` - Runs unit tests using Vitest
 - `lint` - Runs ESLint for code linting
-- `install:agent` - Installs Python dependencies for the agent
+- `format` - Formats code using Prettier
+- `check` - Runs both Prettier and ESLint (format and lint)
+- `install:agent` - Installs Python dependencies for the agent using `uv`
 
 ## Documentation
 
-The main UI component is in `src/app/page.tsx`. You can:
+The main UI component is in `app/routes/index.tsx`. You can:
 - Modify the theme colors and styling
 - Add new frontend actions
 - Customize the CopilotKit sidebar appearance
@@ -65,7 +67,7 @@ The main UI component is in `src/app/page.tsx`. You can:
 
 - [ADK Documentation](https://google.github.io/adk-docs/) - Learn more about the ADK and its features
 - [CopilotKit Documentation](https://docs.copilotkit.ai) - Explore CopilotKit's capabilities
-- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
+- [TanStack Start Documentation](https://tanstack.com/start/latest) - Learn about TanStack Start features and API
 
 
 ## Contributing
