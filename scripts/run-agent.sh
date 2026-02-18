@@ -3,8 +3,5 @@
 # Navigate to the agent directory
 cd "$(dirname "$0")/../agent" || exit 1
 
-# Activate the virtual environment
-source .venv/bin/activate
-
-# Run the agent
-uv run main.py
+# Run ADK web from the parent so it discovers the "agent" folder
+uv run adk web --port 8000 ..

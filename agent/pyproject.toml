@@ -4,12 +4,9 @@ version = "0.1.0"
 description = "Cofacts AI multi-agent fact-checking system"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi",
-    "uvicorn[standard]",
     "python-dotenv",
     "pydantic",
     "google-adk",
     "google-genai",
-    "ag-ui-adk",
     "httpx",
 ]

@@ -12,9 +12,7 @@ from typing import Dict, Optional
 import re
 import json
 
-from ag_ui_adk import ADKAgent, add_adk_fastapi_endpoint
 from dotenv import load_dotenv
-from fastapi import FastAPI
 from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_response import LlmResponse
@@ -543,30 +541,5 @@ ai_writer = LlmAgent(
     ],
 )
 
-# Create ADK middleware agent instance
-adk_agent = ADKAgent(
-    adk_agent=ai_writer,
-    user_id="demo_user",
-    session_timeout_seconds=3600,
-    use_in_memory_services=True,
-)
+root_agent = ai_writer
 
-# Create FastAPI app
-app = FastAPI(title="Cofacts AI Agent")
-
-# Add the ADK endpoint
-add_adk_fastapi_endpoint(app, adk_agent, path="/")
-
-if __name__ == "__main__":
-    import os
-
-    import uvicorn
-
-    if not os.getenv("GOOGLE_API_KEY"):
-        print("⚠️  Warning: GOOGLE_API_KEY environment variable not set!")
-        print("   Set it with: export GOOGLE_API_KEY='your-key-here'")
-        print("   Get a key from: https://makersuite.google.com/app/apikey")
-        print()
-
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
