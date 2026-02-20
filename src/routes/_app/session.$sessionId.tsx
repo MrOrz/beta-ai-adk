@@ -1,12 +1,6 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
-import { useEffect, useRef } from 'react'
 import { ChatArea } from '@/components/ChatArea'
 import { useChat } from '@/hooks/useChat'
-
-// Define the route state type for passing initial message
-interface SessionRouteState {
-  initialMessage?: string
-}
 
 export const Route = createFileRoute('/_app/session/$sessionId')({
   component: SessionPage,
@@ -14,26 +8,12 @@ export const Route = createFileRoute('/_app/session/$sessionId')({
 
 function SessionPage() {
   const { sessionId } = useParams({ from: '/_app/session/$sessionId' })
-  const initialMessageSent = useRef(false)
-
   const {
     messages,
     isStreaming,
     error,
     sendMessage,
   } = useChat({ sessionId })
-
-  // Send initial message from router state (when navigating from landing page)
-  useEffect(() => {
-    if (initialMessageSent.current) return
-
-    // Access the router state that was passed during navigation
-    const state = (window.history.state?.usr ?? {}) as SessionRouteState
-    if (state.initialMessage) {
-      initialMessageSent.current = true
-      sendMessage(state.initialMessage)
-    }
-  }, [sendMessage])
 
   return (
     <>

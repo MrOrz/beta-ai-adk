@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState, useCallback } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { sendChatMessage } from '@/lib/chatCache'
 
 export const Route = createFileRoute('/_app/')({
   component: LandingPage,
@@ -7,6 +9,7 @@ export const Route = createFileRoute('/_app/')({
 
 function LandingPage() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -20,15 +23,17 @@ function LandingPage() {
       // Generate a new session ID
       const sessionId = crypto.randomUUID()
 
-      // Navigate to the session page; the session will be created there
-      // when the first message is sent via SSE
+      // 1. Instantly seed the cache and start the background stream fetch
+      sendChatMessage(queryClient, sessionId, message.trim())
+
+      // 2. Navigate to the session page.
+      // The session page will simply subscribe to the cache, watching the letters stream in.
       navigate({
         to: '/session/$sessionId',
         params: { sessionId },
-        state: { initialMessage: message.trim() },
       })
     },
-    [message, isLoading, navigate],
+    [message, isLoading, navigate, queryClient],
   )
 
   return (

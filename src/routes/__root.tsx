@@ -49,6 +49,17 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      gcTime: Infinity,
+    },
+  },
+})
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-TW">
@@ -56,7 +67,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
         <Scripts />
       </body>
     </html>
