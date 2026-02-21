@@ -13,6 +13,6 @@ count.txt
 todos.json
 
 # python
-agent/venv/
-agent/__pycache__/
-agent/.venv/
+venv/
+__pycache__/
+.venv/
